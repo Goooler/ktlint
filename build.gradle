@@ -15,7 +15,7 @@ ext.deps = [
   ],
   'klob'          : 'com.github.shyiko.klob:klob:0.2.1',
   ec4j            : 'org.ec4j.core:ec4j-core:0.3.0',
-  'picocli'       : 'info.picocli:picocli:3.9.6',
+  'picocli'       : 'info.picocli:picocli:4.6.3',
   'logging'       : 'io.github.microutils:kotlin-logging-jvm:2.1.21',
   // Use logback-classic as the logger for kotlin-logging / slf4j as it allow changing the log level at runtime.
   'logback'       : 'ch.qos.logback:logback-classic:1.2.9',
