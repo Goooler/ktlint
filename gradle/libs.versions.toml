@@ -1,7 +1,8 @@
 [versions]
 gradle = "7.4"
 gradleSha256 = "8cc27038d5dbd815759851ba53e70cf62e481b87494cc97cfd97982ada5ba634"
-kotlin = "1.6.0"
+kotlin = "1.6.20"
+kotlinDev = "1.6.20"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -11,6 +12,7 @@ shadow = "com.github.johnrengelman.shadow:7.1.1"
 
 [libraries]
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
+dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.6.0"
 klob = "com.github.shyiko.klob:klob:0.2.1"
 ec4j = "org.ec4j.core:ec4j-core:0.3.0"
 picocli = "info.picocli:picocli:3.9.6"
