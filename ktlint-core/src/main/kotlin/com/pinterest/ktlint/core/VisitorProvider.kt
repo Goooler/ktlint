@@ -52,7 +52,7 @@ public class VisitorProvider(
                     )
                 }
         }
-        val ruleReferenceWithoutEntriesToBeSkipped = enabledRuleReferences - ruleReferencesToBeSkipped
+        val ruleReferenceWithoutEntriesToBeSkipped = enabledRuleReferences - ruleReferencesToBeSkipped.toSet()
         if (debug && ruleReferenceWithoutEntriesToBeSkipped.isEmpty()) {
             println(
                 "[DEBUG] Skipping file as no enabled rules are found to be executed"
@@ -321,7 +321,7 @@ private class VisitorProviderInitializer(
             val ruleReferencesToUnblock = blockedRuleReferences.findRulesBlockedBy(ruleReference.toQualifiedRuleId())
             if (ruleReferencesToUnblock.isNotEmpty()) {
                 newRuleReferences.addAll(ruleReferencesToUnblock)
-                blockedRuleReferences.removeAll(ruleReferencesToUnblock)
+                blockedRuleReferences.removeAll(ruleReferencesToUnblock.toSet())
             }
         }
         check(blockedRuleReferences.isEmpty()) {
