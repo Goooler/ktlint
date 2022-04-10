@@ -127,7 +127,7 @@ public interface UsesEditorConfigProperties {
         /**
          * If set, it maps the actual value set for the property, to another valid value for that property. See example
          * below where
-         * ```
+         * ```kotlin
          * propertyMapper = { property, isAndroidCodeStyle ->
          *     when {
          *         property == null ->

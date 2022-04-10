@@ -19,7 +19,7 @@ public class EditorConfigTestRule {
     /**
      * Unit tests should not use the filesystem if that can be avoided. Unit tests that depend on an `.editorconfig`
      * property should now be written as follows:
-     * ```
+     * ```kotlin
      * MaxLineLengthRule().lint(
      *     "some-code",
      *     EditorConfigOverride.from(

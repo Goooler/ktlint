@@ -574,7 +574,7 @@ class KtlintCommandLine {
      * buffering an entire sequence).
      *
      * Once kotlinx-coroutines are out of "experimental" stage everything below can be replaced with
-     * ```
+     * ```kotlin
      * suspend fun <T> Sequence<Callable<T>>.parallel(...) {
      *     val ctx = newFixedThreadPoolContext(numberOfThreads, "Sequence<Callable<T>>.parallel")
      *     ctx.use {
