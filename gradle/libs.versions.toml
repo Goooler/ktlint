@@ -21,6 +21,6 @@ logback = "ch.qos.logback:logback-classic:1.2.9"
 janino = "org.codehaus.janino:janino:3.1.4"
 # Testing libraries
 junit5 = "org.junit.jupiter:junit-jupiter:5.8.2"
-assertj = "org.assertj:assertj-core:3.12.2"
+assertj = "org.assertj:assertj-core:3.22.0"
 sarif4k = "io.github.detekt.sarif4k:sarif4k:0.0.1"
 jimfs = "com.google.jimfs:jimfs:1.1"
