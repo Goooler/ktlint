@@ -4,7 +4,7 @@ package com.pinterest.ktlint.core.internal
  * Provides policy to have consistent and restricted `id` field naming style.
  */
 internal object IdNamingPolicy {
-    private const val ID_REGEX = "[a-z]+([-][a-z]+)*"
+    private const val ID_REGEX = "[a-z]+(-[a-z]+)*"
     private val idRegex = ID_REGEX.toRegex()
 
     /**

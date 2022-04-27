@@ -2,9 +2,11 @@ package com.pinterest.ktlint.core
 
 import com.pinterest.ktlint.core.EditorConfig.IndentStyle.SPACE
 import com.pinterest.ktlint.core.EditorConfig.IndentStyle.TAB
+import com.pinterest.ktlint.core.KtLint.EDITOR_CONFIG_PROPERTIES_USER_DATA_KEY
 import com.pinterest.ktlint.core.api.DefaultEditorConfigProperties
 import com.pinterest.ktlint.core.api.FeatureInAlphaState
 import com.pinterest.ktlint.core.api.UsesEditorConfigProperties
+import java.util.Locale
 import org.ec4j.core.model.PropertyType
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
@@ -55,13 +57,13 @@ interface EditorConfig {
         )
         fun fromMap(map: Map<String, String>): EditorConfig {
             val indentStyle = when {
-                map["indent_style"]?.toLowerCase() == "tab" -> TAB
+                map["indent_style"]?.lowercase(Locale.getDefault()) == "tab" -> TAB
                 else -> SPACE
             }
             val indentSize =
                 map["indent_size"]
                     .let { value ->
-                        if (value?.toLowerCase() == "unset") {
+                        if (value?.lowercase(Locale.getDefault()) == "unset") {
                             -1
                         } else {
                             value?.toIntOrNull() ?: IndentConfig.DEFAULT_INDENT_CONFIG.tabWidth
@@ -85,7 +87,7 @@ interface EditorConfig {
                 "implemented first on the rule.",
             replaceWith = ReplaceWith("this.getEditorConfigValue(property)")
         )
-        public fun ASTNode.loadEditorConfig(): EditorConfig = getUserData(KtLint.EDITOR_CONFIG_USER_DATA_KEY)!!
+        public fun ASTNode.loadEditorConfig(): EditorConfig = getUserData(EDITOR_CONFIG_PROPERTIES_USER_DATA_KEY)!!
 
         @Deprecated(
             message = "Marked for removal in Ktlint 0.46. Implement interface UsesEditorConfigProperties on the " +
