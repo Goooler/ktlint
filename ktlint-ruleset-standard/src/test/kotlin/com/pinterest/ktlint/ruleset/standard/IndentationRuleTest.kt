@@ -457,7 +457,7 @@ internal class IndentationRuleTest {
         val code: String =
             """
             fun foo1(bar: String) =
-            bar.toUpperCase()
+            bar.uppercase(Locale.getDefault())
             .trim()
             .length.also {
             println("done")
@@ -469,7 +469,7 @@ internal class IndentationRuleTest {
             val formattedCode =
                 """
                 fun foo1(bar: String) =
-                    bar.toUpperCase()
+                    bar.uppercase(Locale.getDefault())
                         .trim()
                         .length.also {
                             println("done")
@@ -490,7 +490,7 @@ internal class IndentationRuleTest {
             val formattedCode =
                 """
                 fun foo1(bar: String) =
-                ${TAB}bar.toUpperCase()
+                ${TAB}bar.uppercase(Locale.getDefault())
                 ${TAB}${TAB}.trim()
                 ${TAB}${TAB}.length.also {
                 ${TAB}${TAB}${TAB}println("done")

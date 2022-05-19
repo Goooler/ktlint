@@ -2,7 +2,6 @@ package com.pinterest.ktlint.core
 
 import com.pinterest.ktlint.core.EditorConfig.IndentStyle.SPACE
 import com.pinterest.ktlint.core.EditorConfig.IndentStyle.TAB
-import com.pinterest.ktlint.core.KtLint.EDITOR_CONFIG_PROPERTIES_USER_DATA_KEY
 import com.pinterest.ktlint.core.api.DefaultEditorConfigProperties
 import com.pinterest.ktlint.core.api.FeatureInAlphaState
 import com.pinterest.ktlint.core.api.UsesEditorConfigProperties
@@ -87,7 +86,7 @@ interface EditorConfig {
                 "implemented first on the rule.",
             replaceWith = ReplaceWith("this.getEditorConfigValue(property)")
         )
-        public fun ASTNode.loadEditorConfig(): EditorConfig = getUserData(EDITOR_CONFIG_PROPERTIES_USER_DATA_KEY)!!
+        public fun ASTNode.loadEditorConfig(): EditorConfig = getUserData(KtLint.EDITOR_CONFIG_USER_DATA_KEY)!!
 
         @Deprecated(
             message = "Marked for removal in Ktlint 0.46. Implement interface UsesEditorConfigProperties on the " +
