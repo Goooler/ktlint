@@ -26,7 +26,7 @@ public class VisitorProvider(
                     .rules
                     .filter { rule -> toQualifiedRuleId(ruleSet.id, rule.id) in enabledQualifiedRuleIds }
                     .filter { rule -> isNotDisabled(rootNode, toQualifiedRuleId(ruleSet.id, rule.id)) }
-                    .map { rule -> "${toQualifiedRuleId(ruleSet.id, rule.id)}" to rule }
+                    .map { rule -> toQualifiedRuleId(ruleSet.id, rule.id) to rule }
             }.toMap()
         if (debug && enabledRules.isEmpty()) {
             println(
