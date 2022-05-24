@@ -220,7 +220,6 @@ public object KtLint {
 
     @Deprecated(
         message = "Should not be a part of public api. Will be removed in future release.",
-        level = DeprecationLevel.WARNING
     )
     public fun normalizeText(text: String): String {
         return text
@@ -248,7 +247,6 @@ public object KtLint {
 
     @Deprecated(
         message = "Should not be a part of public api. Will be removed in future release.",
-        level = DeprecationLevel.WARNING
     )
     public fun calculateLineColByOffset(
         text: String
