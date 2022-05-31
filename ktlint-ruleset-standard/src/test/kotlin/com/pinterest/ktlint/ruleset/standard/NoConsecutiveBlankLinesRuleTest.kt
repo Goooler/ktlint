@@ -172,7 +172,21 @@ class NoConsecutiveBlankLinesRuleTest {
     }
 
     @Test
-    fun `should remove line in dot qualified expression`() {
+    fun `Given single blank line in dot qualified expression should not return lint errors`() {
+        val code =
+            """
+            fun foo(inputText: String) {
+                inputText
+
+                    .lowercase(Locale.getDefault())
+            }
+            """.trimIndent()
+
+        noConsecutiveBlankLinesRuleAssertThat(code).hasNoLintViolations()
+    }
+
+    @Test
+    fun `Given multiple blank line in dot qualified expression should return lint error`() {
         val code =
             """
             fun foo(inputText: String) {
@@ -182,15 +196,17 @@ class NoConsecutiveBlankLinesRuleTest {
                     .lowercase(Locale.getDefault())
             }
             """.trimIndent()
-        val formattedCode =
-            """
-            fun foo(inputText: String) {
-                inputText
-                    .lowercase(Locale.getDefault())
-            }
-            """.trimIndent()
+
         noConsecutiveBlankLinesRuleAssertThat(code)
-            .hasLintViolation(4, 1, "Needless blank line(s)")
-            .isFormattedAs(formattedCode)
+            .hasLintViolations(LintViolation(4, 1, "Needless blank line(s)"))
+            .isFormattedAs(
+                """
+                fun foo(inputText: String) {
+                    inputText
+
+                        .lowercase(Locale.getDefault())
+                }
+                """.trimIndent()
+            )
     }
 }
