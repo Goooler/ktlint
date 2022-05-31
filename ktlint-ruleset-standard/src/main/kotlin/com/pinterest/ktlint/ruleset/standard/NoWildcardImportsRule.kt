@@ -11,7 +11,6 @@ import org.ec4j.core.model.PropertyType
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.KtImportDirective
 
-@OptIn(FeatureInAlphaState::class)
 public class NoWildcardImportsRule :
     Rule("no-wildcard-imports"),
     UsesEditorConfigProperties {

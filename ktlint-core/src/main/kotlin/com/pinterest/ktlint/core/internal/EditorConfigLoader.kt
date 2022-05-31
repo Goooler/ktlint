@@ -25,7 +25,6 @@ private val logger = KotlinLogging.logger {}.initKtLintKLogger()
  *
  * Contains internal in-memory cache to speedup lookup.
  */
-@OptIn(FeatureInAlphaState::class)
 public class EditorConfigLoader(
     private val fs: FileSystem
 ) {

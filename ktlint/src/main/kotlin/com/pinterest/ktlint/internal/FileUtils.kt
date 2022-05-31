@@ -163,7 +163,6 @@ internal fun File.location(
 /**
  * Run lint over common kotlin file or kotlin script file.
  */
-@OptIn(FeatureInAlphaState::class)
 internal fun lintFile(
     fileName: String,
     fileContents: String,
@@ -191,7 +190,6 @@ internal fun lintFile(
 /**
  * Format a kotlin file or script file
  */
-@OptIn(FeatureInAlphaState::class)
 internal fun formatFile(
     fileName: String,
     fileContents: String,

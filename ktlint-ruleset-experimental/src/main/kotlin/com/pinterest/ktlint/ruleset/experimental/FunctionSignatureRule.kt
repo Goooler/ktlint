@@ -38,7 +38,6 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.utils.addToStdlib.ifTrue
 
-@OptIn(FeatureInAlphaState::class)
 public class FunctionSignatureRule :
     Rule(
         id = "function-signature",

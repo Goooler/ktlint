@@ -20,7 +20,6 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiCommentImpl
  * Checks external wrapping of block comments. Wrapping inside the comment is not altered. A block comment following
  * another element on the same line is replaced with an EOL comment, if possible.
  */
-@OptIn(FeatureInAlphaState::class)
 public class CommentWrappingRule :
     Rule("$experimentalRulesetId:comment-wrapping"),
     UsesEditorConfigProperties {

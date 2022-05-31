@@ -39,7 +39,6 @@ private val logger = KotlinLogging.logger {}.initKtLintKLogger()
  *
  * In case the custom property is not provided, the rule defaults to alphabetical order in case of "android" flag supplied, or to idea otherwise.
  */
-@OptIn(FeatureInAlphaState::class)
 public class ImportOrderingRule :
     Rule("import-ordering"),
     UsesEditorConfigProperties {

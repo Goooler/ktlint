@@ -164,7 +164,6 @@ public object KtLint {
             .forEach { e -> params.cb(e, false) }
     }
 
-    @OptIn(FeatureInAlphaState::class)
     private fun prepareCodeForLinting(
         psiFileFactory: PsiFileFactory,
         params: ExperimentalParams

@@ -36,7 +36,6 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.psi.KtTypeArgumentList
 import org.jetbrains.kotlin.psi.psiUtil.collectDescendantsOfType
 
-@OptIn(FeatureInAlphaState::class)
 class ParameterListWrappingRule :
     Rule("parameter-list-wrapping"),
     UsesEditorConfigProperties {

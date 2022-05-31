@@ -39,7 +39,6 @@ import org.jetbrains.kotlin.psi.psiUtil.getStrictParentOfType
  * - maxLineLength exceeded (and separating arguments with \n would actually help)
  * in addition, "(" and ")" must be on separates line if any of the arguments are (otherwise on the same)
  */
-@OptIn(FeatureInAlphaState::class)
 class ArgumentListWrappingRule :
     Rule("$experimentalRulesetId:argument-list-wrapping"),
     UsesEditorConfigProperties {

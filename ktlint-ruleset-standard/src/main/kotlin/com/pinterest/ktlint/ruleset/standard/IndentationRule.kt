@@ -101,7 +101,6 @@ private val logger = KotlinLogging.logger {}.initKtLintKLogger()
  * Current limitations:
  * - "all or nothing" (currently, rule can only be disabled for an entire file)
  */
-@OptIn(FeatureInAlphaState::class)
 public class IndentationRule :
     Rule(
         id = "indent",

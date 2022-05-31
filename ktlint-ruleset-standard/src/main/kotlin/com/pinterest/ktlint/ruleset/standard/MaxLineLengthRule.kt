@@ -19,7 +19,6 @@ import org.jetbrains.kotlin.kdoc.psi.api.KDoc
 import org.jetbrains.kotlin.psi.KtImportDirective
 import org.jetbrains.kotlin.psi.KtPackageDirective
 
-@OptIn(FeatureInAlphaState::class)
 class MaxLineLengthRule :
     Rule(
         id = "max-line-length",
