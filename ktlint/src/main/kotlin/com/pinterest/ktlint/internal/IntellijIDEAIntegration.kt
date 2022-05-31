@@ -26,7 +26,6 @@ object IntellijIDEAIntegration {
 
     @Suppress("UNUSED_PARAMETER")
     @Throws(IOException::class)
-    @OptIn(FeatureInAlphaState::class)
     fun apply(workDir: Path, dryRun: Boolean, android: Boolean = false, local: Boolean = false): Array<Path> {
         val editorConfigProperties = EditorConfigLoader(FileSystems.getDefault())
             .loadPropertiesForFile(null, isStdIn = true, rules = emptySet())

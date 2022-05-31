@@ -101,7 +101,6 @@ private val logger = KotlinLogging.logger {}.initKtLintKLogger()
  * Current limitations:
  * - "all or nothing" (currently, rule can only be disabled for an entire file)
  */
-@OptIn(FeatureInAlphaState::class)
 public class IndentationRule :
     Rule(
         id = "indent",
@@ -986,9 +985,7 @@ public class IndentationRule :
             .filterNot { it.startsWith("\"\"\"") }
             .filterNot { it.endsWith("\"\"\"") }
             .filterNot { it.isBlank() }
-        val prefixLength = nonBlankLines
-            .map { it.indentLength() }
-            .minOrNull() ?: 0
+        val prefixLength = nonBlankLines.minOfOrNull { it.indentLength() } ?: 0
         val distinctIndentCharacters = nonBlankLines
             .joinToString(separator = "") {
                 it.splitIndentAt(prefixLength).first

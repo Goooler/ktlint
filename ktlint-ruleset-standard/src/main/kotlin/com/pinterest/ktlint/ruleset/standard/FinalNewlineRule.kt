@@ -11,7 +11,6 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiWhiteSpace
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 
-@OptIn(FeatureInAlphaState::class)
 public class FinalNewlineRule :
     Rule(
         id = "final-newline",

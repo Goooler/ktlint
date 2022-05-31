@@ -206,7 +206,7 @@ internal class RuleSorter {
             val ruleReferencesToUnblock = blockedRuleReferences.findRulesBlockedBy(ruleReference.toQualifiedRuleId())
             if (ruleReferencesToUnblock.isNotEmpty()) {
                 newRuleReferences.addAll(ruleReferencesToUnblock)
-                blockedRuleReferences.removeAll(ruleReferencesToUnblock)
+                blockedRuleReferences.removeAll(ruleReferencesToUnblock.toSet())
             }
         }
         check(blockedRuleReferences.isEmpty()) {

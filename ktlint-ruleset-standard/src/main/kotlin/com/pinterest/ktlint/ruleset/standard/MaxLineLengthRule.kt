@@ -19,7 +19,6 @@ import org.jetbrains.kotlin.kdoc.psi.api.KDoc
 import org.jetbrains.kotlin.psi.KtImportDirective
 import org.jetbrains.kotlin.psi.KtPackageDirective
 
-@OptIn(FeatureInAlphaState::class)
 class MaxLineLengthRule :
     Rule(
         id = "max-line-length",
@@ -154,7 +153,7 @@ private data class ParsedLine(
         return elements
             .filterIsInstance(PsiElement::class.java)
             .filter { it.text.matches(isValueBetweenBackticks) }
-            .sumBy(PsiElement::getTextLength)
+            .sumOf(PsiElement::getTextLength)
     }
 
     private companion object {

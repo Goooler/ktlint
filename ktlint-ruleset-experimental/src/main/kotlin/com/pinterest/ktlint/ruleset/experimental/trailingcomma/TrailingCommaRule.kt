@@ -31,7 +31,6 @@ import org.jetbrains.kotlin.psi.psiUtil.nextLeaf
 import org.jetbrains.kotlin.psi.psiUtil.prevLeaf
 import org.jetbrains.kotlin.utils.addToStdlib.cast
 
-@OptIn(FeatureInAlphaState::class)
 public class TrailingCommaRule :
     Rule(
         id = "$experimentalRulesetId:trailing-comma",
