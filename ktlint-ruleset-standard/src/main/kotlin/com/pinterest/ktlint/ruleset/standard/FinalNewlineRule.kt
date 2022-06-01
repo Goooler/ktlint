@@ -4,7 +4,6 @@ import com.pinterest.ktlint.core.KtLint
 import com.pinterest.ktlint.core.Rule
 import com.pinterest.ktlint.core.api.DefaultEditorConfigProperties.insertNewLineProperty
 import com.pinterest.ktlint.core.api.EditorConfigProperties
-import com.pinterest.ktlint.core.api.FeatureInAlphaState
 import com.pinterest.ktlint.core.api.UsesEditorConfigProperties
 import com.pinterest.ktlint.core.ast.isRoot
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode

@@ -1,7 +1,6 @@
 package com.pinterest.ktlint.internal
 
 import com.github.shyiko.klob.Glob
-import com.pinterest.ktlint.core.api.FeatureInAlphaState
 import com.pinterest.ktlint.core.internal.EditorConfigLoader
 import com.pinterest.ktlint.core.internal.EditorConfigLoader.Companion.convertToRawValues
 import java.io.ByteArrayInputStream
