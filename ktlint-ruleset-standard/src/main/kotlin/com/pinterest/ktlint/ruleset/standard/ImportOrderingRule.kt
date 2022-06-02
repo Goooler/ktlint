@@ -1,7 +1,6 @@
 package com.pinterest.ktlint.ruleset.standard
 
 import com.pinterest.ktlint.core.Rule
-import com.pinterest.ktlint.core.api.EditorConfigProperties
 import com.pinterest.ktlint.core.api.UsesEditorConfigProperties
 import com.pinterest.ktlint.core.ast.ElementType
 import com.pinterest.ktlint.core.ast.isRoot
