@@ -14,7 +14,6 @@ public annotation class FeatureInAlphaState
 
 @RequiresOptIn(
     message = "This Ktlint feature is experimental, and may change in the future releases.",
-    level = RequiresOptIn.Level.WARNING
 )
 @Retention(AnnotationRetention.BINARY)
 @Target(
