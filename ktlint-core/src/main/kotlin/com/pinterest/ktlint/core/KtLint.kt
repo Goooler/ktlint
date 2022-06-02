@@ -216,7 +216,7 @@ public object KtLint {
     }
 
     @Deprecated(
-        message = "Should not be a part of public api. Will be removed in future release.",
+        message = "Should not be a part of public api. Will be removed in future release."
     )
     public fun normalizeText(text: String): String {
         return text
