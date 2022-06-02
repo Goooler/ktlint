@@ -51,7 +51,6 @@ private enum class TrailingCommaState {
     ;
 }
 
-@OptIn(FeatureInAlphaState::class)
 public class TrailingCommaRule :
     Rule(
         id = "trailing-comma",

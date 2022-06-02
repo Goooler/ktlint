@@ -1,6 +1,5 @@
 package com.pinterest.ktlint.ruleset.experimental
 
-import com.pinterest.ktlint.core.api.FeatureInAlphaState
 import com.pinterest.ktlint.ruleset.experimental.FunctionSignatureRule.Companion.functionSignatureWrappingMinimumParametersProperty
 import com.pinterest.ktlint.ruleset.standard.NoMultipleSpacesRule
 import com.pinterest.ktlint.ruleset.standard.SpacingAroundAngleBracketsRule
@@ -15,7 +14,6 @@ import com.pinterest.ktlint.test.LintViolation
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@OptIn(FeatureInAlphaState::class)
 class FunctionSignatureRuleTest {
     private val functionSignatureWrappingRuleAssertThat = FunctionSignatureRule().assertThat()
 
