@@ -9,10 +9,6 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
-    }
-
     // Do not enable explicit api for cli project
     if (project.name != "ktlint") {
         explicitApiWarning()
