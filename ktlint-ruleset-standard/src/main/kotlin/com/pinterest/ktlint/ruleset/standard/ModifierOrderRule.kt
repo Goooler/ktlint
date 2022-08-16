@@ -67,7 +67,7 @@ public class ModifierOrderRule : Rule("modifier-order") {
         if (node.psi is KtDeclarationModifierList) {
             val modifierArr = node.getChildren(tokenSet)
             val sorted = modifierArr.copyOf().apply { sortWith(compareBy { order.indexOf(it.elementType) }) }
-            if (!Arrays.equals(modifierArr, sorted)) {
+            if (!modifierArr.contentEquals(sorted)) {
                 // Since annotations can be fairly lengthy and/or span multiple lines we are
                 // squashing them into a single placeholder text to guarantee a single line output
                 emit(

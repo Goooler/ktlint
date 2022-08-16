@@ -116,7 +116,7 @@ public class MaxLineLengthRule :
             ?.let { it.firstChildNode.text == "\"\"\"" && it.textContains('\n') } == true
 
     public companion object {
-        internal const val KTLINT_IGNORE_BACKTICKED_IDENTIFIER_NAME = "ktlint_ignore_back_ticked_identifier"
+        private const val KTLINT_IGNORE_BACKTICKED_IDENTIFIER_NAME = "ktlint_ignore_back_ticked_identifier"
         private const val PROPERTY_DESCRIPTION = "Defines whether the backticked identifier (``) should be ignored"
 
         public val ignoreBackTickedIdentifierProperty: UsesEditorConfigProperties.EditorConfigProperty<Boolean> =

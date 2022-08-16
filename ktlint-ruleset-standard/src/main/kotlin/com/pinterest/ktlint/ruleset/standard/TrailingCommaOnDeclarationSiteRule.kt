@@ -422,7 +422,7 @@ public class TrailingCommaOnDeclarationSiteRule :
 
     public companion object {
 
-        internal const val ALLOW_TRAILING_COMMA_NAME = "ij_kotlin_allow_trailing_comma"
+        private const val ALLOW_TRAILING_COMMA_NAME = "ij_kotlin_allow_trailing_comma"
         private const val ALLOW_TRAILING_COMMA_DESCRIPTION = "Defines whether a trailing comma (or no trailing comma)" +
             "should be enforced on the defining side," +
             "e.g. parameter-list, type-argument-list, lambda-value-parameters, enum-entries, etc."

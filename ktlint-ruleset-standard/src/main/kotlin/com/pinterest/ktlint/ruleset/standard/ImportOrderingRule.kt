@@ -176,7 +176,7 @@ public class ImportOrderingRule :
     }
 
     public companion object {
-        internal const val IDEA_IMPORTS_LAYOUT_PROPERTY_NAME = "ij_kotlin_imports_layout"
+        private const val IDEA_IMPORTS_LAYOUT_PROPERTY_NAME = "ij_kotlin_imports_layout"
         private const val PROPERTY_DESCRIPTION = "Defines imports order layout for Kotlin files"
 
         /**
