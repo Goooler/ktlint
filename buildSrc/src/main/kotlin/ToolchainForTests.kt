@@ -28,6 +28,7 @@ private fun Project.addJdkVersionTests(jdkVersion: Int) {
             )
         }
         if (jdkVersion >= 18) {
+            // https://openjdk.org/jeps/411
             jvmArgs += "-Djava.security.manager=allow"
         }
         setJvmArgs(jvmArgs)
