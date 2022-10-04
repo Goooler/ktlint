@@ -69,7 +69,7 @@ val shadowJarExecutable by tasks.registering(DefaultTask::class) {
             signing.sign(execFile)
         }
     }
-    finalizedBy(tasks["shadowJarExecutableChecksum"])
+    finalizedBy(tasks.named("shadowJarExecutableChecksum"))
 }
 
 tasks.register<Checksum>("shadowJarExecutableChecksum") {
@@ -89,7 +89,7 @@ tasks.withType<Test>().configureEach {
     doFirst {
         systemProperty(
             "ktlint-cli",
-            shadowJarExecutable.get().outputs.files.first { it.name == "ktlint" }.absolutePath,
+            shadowJarExecutable.map { it.outputs.files.first { it.name == "ktlint" }.absolutePath },
         )
         systemProperty("ktlint-version", version)
     }
