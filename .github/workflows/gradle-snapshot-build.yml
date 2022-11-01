@@ -18,7 +18,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 18
-      - uses: gradle/gradle-build-action@v2
       - name: Publish snapshot to Maven
         run: ./gradlew clean publishMavenPublicationToMavenCentralRepository --no-daemon --no-parallel
       - name: Publish Kotlin-dev snapshot to Maven

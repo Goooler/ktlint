@@ -15,7 +15,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 18
-      - uses: gradle/gradle-build-action@v2
       - name: Build with release Kotlin version
         run: ./gradlew clean build ktlint --no-daemon
       - name: Build with dev Kotlin version
