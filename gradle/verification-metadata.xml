@@ -3,6 +3,13 @@
    <configuration>
       <verify-metadata>true</verify-metadata>
       <verify-signatures>true</verify-signatures>
+      <key-servers>
+         <key-server uri="https://keys.openpgp.org"/>
+         <key-server uri="https://keyserver.ubuntu.com"/>
+         <!-- key server below is added from the https://sks-keyservers.net pool that is not working anymore -->
+         <!-- remove it when it will be possible -->
+         <key-server uri="hkp://sks.pgpkeys.eu"/>
+      </key-servers>
       <trusted-keys>
          <trusted-key id="13ac2213964abe1d1c147c0e1939a2520bab1d90" group="org.freemarker" name="freemarker" version="2.3.31"/>
          <trusted-key id="160a7a9cf46221a56b06ad64461a804f2609fd89" group="com.github.shyiko.klob" name="klob" version="0.2.1"/>
