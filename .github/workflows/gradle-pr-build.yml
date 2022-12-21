@@ -25,5 +25,5 @@ jobs:
         if: failure()
         with:
           name: Test artifacts
-          path: '**/build/reports/**'
+          path: '**/build/reports/tests/**'
           if-no-files-found: warn
