@@ -17,9 +17,9 @@ jobs:
           java-version: 19
       - uses: gradle/gradle-build-action@v2
       - name: Build with release Kotlin version
-        run: ./gradlew clean build ktlint --no-daemon
+        run: ./gradlew clean build ktlint
       - name: Build with dev Kotlin version
-        run: ./gradlew -PkotlinDev clean build ktlint --no-daemon
+        run: ./gradlew -PkotlinDev clean build ktlint
       - name: Upload test results
         uses: actions/upload-artifact@v3
         if: failure()
