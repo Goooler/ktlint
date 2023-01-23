@@ -33,7 +33,7 @@ allprojects {
             // https://openjdk.org/jeps/411
             jvmArgs += "-Djava.security.manager=allow"
         }
-        setJvmArgs(jvmArgs)
+        jvmArgs(jvmArgs)
     }
 }
 
