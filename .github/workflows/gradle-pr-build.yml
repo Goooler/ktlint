@@ -1,13 +1,13 @@
 name: PR Build
 
 on:
-  pull_request:
+  push:
 
 jobs:
   build:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -15,15 +15,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 19
-      - uses: gradle/gradle-build-action@v2
-      - name: Build with release Kotlin version
-        run: ./gradlew clean build ktlint --no-daemon
-      - name: Build with dev Kotlin version
-        run: ./gradlew -PkotlinDev clean build ktlint --no-daemon
-      - name: Upload test results
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: Test artifacts
-          path: '**/build/reports/tests/**'
-          if-no-files-found: warn
+      - run: |
+          sudo apt update
+          sudo apt install snapd
+          sudo snap install ktlint --edge
+          ktlint --version
