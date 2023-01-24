@@ -1,7 +1,7 @@
 name: PR Build
 
 on:
-  push:
+  pull_request:
 
 jobs:
   build:
@@ -15,7 +15,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 19
-      - run: |
+      - name: Print CLI version
+        run: |
           rm -rf ktlint
           curl -JLO https://github.com/pinterest/ktlint/releases/download/0.48.1/ktlint
           chmod +x ktlint
