@@ -16,6 +16,6 @@ jobs:
           distribution: 'zulu'
           java-version: 19
       - run: |
-          wget --no-check-certificate --content-disposition https://github.com/pinterest/ktlint/releases/download/0.48.1/ktlint
+          curl -JLO https://github.com/pinterest/ktlint/releases/download/0.48.1/ktlint
           chmod +x ktlint
           ./ktlint --version
