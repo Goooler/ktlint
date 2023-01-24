@@ -16,5 +16,6 @@ jobs:
           distribution: 'zulu'
           java-version: 19
       - run: |
-          sudo snap install ktlint --edge --devmode
-          ktlint --version
+          wget --no-check-certificate --content-disposition https://github.com/pinterest/ktlint/releases/download/0.48.1/ktlint
+          chmod +x ktlint
+          ./ktlint --version
