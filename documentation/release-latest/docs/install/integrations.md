@@ -200,9 +200,8 @@ tasks.register<JavaExec>("ktlintFormat") {
     jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
     // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
     args(
-        "-F",
-        "**/src/**/*.kt",
-        "**.kts",
+        "**/src/**.kt",
+        "**/**.kts",
         "!**/build/**",
     )
 }

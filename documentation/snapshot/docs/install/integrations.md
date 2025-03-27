@@ -182,8 +182,8 @@ val ktlintCheck by tasks.registering(JavaExec::class) {
     mainClass.set("com.pinterest.ktlint.Main")
     // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
     args(
-        "**/src/**/*.kt",
-        "**.kts",
+        "**/src/**.kt",
+        "**/**.kts",
         "!**/build/**",
     )
 }
@@ -201,8 +201,8 @@ tasks.register<JavaExec>("ktlintFormat") {
     // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
     args(
         "-F",
-        "**/src/**/*.kt",
-        "**.kts",
+        "**/src/**.kt",
+        "**/**.kts",
         "!**/build/**",
     )
 }

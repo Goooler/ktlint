@@ -38,8 +38,8 @@ tasks.register<JavaExec>("ktlintCheck") {
     classpath = ktlint
     mainClass = "com.pinterest.ktlint.Main"
     args(
-        "**/src/**/*.kt",
-        "**.kts",
+        "**/src/**.kt",
+        "**/**.kts",
         "!**/build/**",
         // Do not run with option "--log-level=debug" or "--log-level=trace" as the lint violations will be difficult
         // to spot between the amount of output lines.
@@ -54,8 +54,8 @@ tasks.register<JavaExec>("ktlintFormat") {
     jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
     args(
         "-F",
-        "**/src/**/*.kt",
-        "**.kts",
+        "**/src/**.kt",
+        "**/**.kts",
         "!**/build/**",
         // Do not run with option "--log-level=debug" or "--log-level=trace" as the lint violations will be difficult
         // to spot between the amount of output lines.
