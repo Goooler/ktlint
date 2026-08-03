@@ -25,6 +25,7 @@ tasks.shadowJar {
 
     minimize {
         r8 {
+            enableOptimization()
             keepRuleFiles.from(layout.projectDirectory.file("src/main/rules.pro"))
             keepRuleFiles.from(
                 fileTree(rootDir) {
