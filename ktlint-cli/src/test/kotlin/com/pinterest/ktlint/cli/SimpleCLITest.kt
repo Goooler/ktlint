@@ -285,6 +285,72 @@ class SimpleCLITest {
     }
 
     @Test
+    fun `Verify checkstyle reporter`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        CommandLineTestRunner(tempDir)
+            .run(
+                "too-many-empty-lines",
+                listOf("**/*.test", "--reporter=checkstyle,output=ktlint-violations.xml"),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertErrorExitCode()
+                        assertThat(normalOutput)
+                            .containsLineMatching("Initializing \"checkstyle\" reporter")
+                            .containsLineMatching(Regex(".*ReporterAggregator -- \"checkstyle\" report written to .*ktlint-violations.xml"))
+                        val reportFile = testProject.resolve("ktlint-violations.xml").toFile()
+                        assertThat(reportFile).exists()
+                        assertThat(reportFile.readText()).contains("<checkstyle")
+                    }.assertAll()
+            }
+    }
+
+    @Test
+    fun `Verify html reporter`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        CommandLineTestRunner(tempDir)
+            .run(
+                "too-many-empty-lines",
+                listOf("**/*.test", "--reporter=html,output=ktlint-violations.html"),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertErrorExitCode()
+                        assertThat(normalOutput)
+                            .containsLineMatching("Initializing \"html\" reporter")
+                            .containsLineMatching(Regex(".*ReporterAggregator -- \"html\" report written to .*ktlint-violations.html"))
+                        val reportFile = testProject.resolve("ktlint-violations.html").toFile()
+                        assertThat(reportFile).exists()
+                        assertThat(reportFile.readText()).contains("<html>")
+                    }.assertAll()
+            }
+    }
+
+    @Test
+    fun `Verify plain-summary reporter`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        CommandLineTestRunner(tempDir)
+            .run(
+                "too-many-empty-lines",
+                listOf("**/*.test", "--reporter=plain-summary"),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertErrorExitCode()
+                        assertThat(normalOutput)
+                            .containsLineMatching("Initializing \"plain-summary\" reporter")
+                            .containsLineMatching(Regex(".*Count \\(descending\\) of errors.*"))
+                    }.assertAll()
+            }
+    }
+
+    @Test
     fun `Given a custom reporter which does not exist`(
         @TempDir
         tempDir: Path,
