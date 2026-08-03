@@ -22,6 +22,12 @@ tasks.shadowJar {
     // reflection-config.json / resource-config.json files that aren't bundled — drop them
     // so GraalVM native-image doesn't fail on missing resources.
     exclude("META-INF/native-image/org.jline/**")
+
+    minimize {
+        r8 {
+            keepRuleFiles.from(layout.projectDirectory.file("src/main/rules.pro"))
+        }
+    }
 }
 
 dependencies {
