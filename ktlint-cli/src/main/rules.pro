@@ -3,11 +3,7 @@
     public static void main(java.lang.String[]);
 }
 
-# Preserve ServiceLoader implementations for RuleSets and Reporters
--keep class * implements com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider { *; }
--keep class * implements com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3 { *; }
--keep class * implements com.pinterest.ktlint.cli.reporter.core.api.ReporterProvider { *; }
--keep class * implements com.pinterest.ktlint.rule.engine.core.api.RuleProvider { *; }
+# Preserve ServiceLoader implementations (bundled in submodule META-INF/proguard)
 
 # Keep Rule Engine, Rulesets and CLI internals (including logging and exit helpers for integration tests)
 -keep class com.pinterest.ktlint.rule.engine.** { *; }

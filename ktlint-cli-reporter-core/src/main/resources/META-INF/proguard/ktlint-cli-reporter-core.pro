@@ -1,0 +1,1 @@
+-keep class * implements com.pinterest.ktlint.cli.reporter.core.api.ReporterProvider { *; }

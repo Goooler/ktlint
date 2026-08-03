@@ -1,0 +1,2 @@
+-keep class * implements com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider { *; }
+-keep class * implements com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3 { *; }

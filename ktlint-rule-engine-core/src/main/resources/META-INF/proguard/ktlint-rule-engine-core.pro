@@ -1,0 +1,1 @@
+-keep class * implements com.pinterest.ktlint.rule.engine.core.api.RuleProvider { *; }
