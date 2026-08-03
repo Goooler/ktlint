@@ -708,4 +708,53 @@ class SimpleCLITest {
                     }.assertAll()
             }
     }
+
+    @Test
+    fun `Given code with suppressed rule violations then ignore suppressed errors under minification`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        val suppressedCode =
+            """
+            @Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:property-naming")
+            import java.util.*
+
+            val BAD_name = "test"
+            """.trimIndent() + "\n"
+        CommandLineTestRunner(tempDir)
+            .run(
+                testProjectName = "too-many-empty-lines",
+                arguments = listOf("--stdin", "--stdin-path=Suppressed.kt"),
+                stdin = java.io.ByteArrayInputStream(suppressedCode.toByteArray()),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertNormalExitCode()
+                    }.assertAll()
+            }
+    }
+
+    @Test
+    fun `Given unformatted kotlin file when running format CLI argument then automatically format file on disk`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        val targetFile = tempDir.resolve("Unformatted.kt")
+        java.nio.file.Files.writeString(
+            targetFile,
+            "val foo=  \"bar\"\n",
+        )
+        CommandLineTestRunner(tempDir)
+            .run(
+                testProjectName = "too-many-empty-lines",
+                arguments = listOf("-F", targetFile.toAbsolutePath().toString()),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertNormalExitCode()
+                        assertThat(java.nio.file.Files.readString(targetFile))
+                            .isEqualTo("val foo = \"bar\"\n")
+                    }.assertAll()
+            }
+    }
 }
