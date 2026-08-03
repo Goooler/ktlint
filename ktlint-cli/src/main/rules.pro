@@ -15,8 +15,16 @@
 -keep class org.jetbrains.kotlin.compiler.plugin.** { *; }
 -keep class org.jetbrains.kotlin.diagnostics.** { *; }
 
-# Keep constructors across Kotlin compiler packages to ensure reflection-based instantiation works
--keep class org.jetbrains.kotlin.** {
+# Keep constructors for Kotlin Compiler PSI, KDoc, and IntelliJ Platform AST nodes instantiated via reflection
+-keep class org.jetbrains.kotlin.psi.** {
+    public <init>(...);
+    protected <init>(...);
+}
+-keep class org.jetbrains.kotlin.kdoc.** {
+    public <init>(...);
+    protected <init>(...);
+}
+-keep class org.jetbrains.kotlin.com.intellij.** {
     public <init>(...);
     protected <init>(...);
 }
