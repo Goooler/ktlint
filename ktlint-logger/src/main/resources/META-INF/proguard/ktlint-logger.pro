@@ -1,0 +1,3 @@
+-keep class io.github.oshai.kotlinlogging.** { *; }
+-keep class org.slf4j.** { *; }
+-keep class ch.qos.logback.** { *; }

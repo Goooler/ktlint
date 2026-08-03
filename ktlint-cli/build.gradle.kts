@@ -26,6 +26,12 @@ tasks.shadowJar {
     minimize {
         r8 {
             keepRuleFiles.from(layout.projectDirectory.file("src/main/rules.pro"))
+            keepRuleFiles.from(
+                fileTree(rootDir) {
+                    include("**/src/main/resources/META-INF/proguard/*.pro")
+                    exclude("**/build/**")
+                },
+            )
         }
     }
 }
