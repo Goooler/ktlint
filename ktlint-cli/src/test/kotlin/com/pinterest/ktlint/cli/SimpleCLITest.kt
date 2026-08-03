@@ -677,4 +677,35 @@ class SimpleCLITest {
                 }
         }
     }
+
+    @Test
+    fun `Given code with complex Kotlin syntax features then lint and format successfully`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        val complexCode =
+            """
+            /**
+             * KDoc comment block verifying AST parsing for KDoc elements.
+             * @param T Generic type parameter
+             */
+            @Suppress("UNCHECKED_CAST")
+            public suspend fun <in T : Any> processItem(item: T): List<T> {
+                val (a, b) = Pair("key", 42)
+                return emptyList()
+            }
+
+            """.trimIndent()
+        CommandLineTestRunner(tempDir)
+            .run(
+                testProjectName = "too-many-empty-lines",
+                arguments = listOf("--stdin", "--stdin-path=Complex.kt"),
+                stdin = java.io.ByteArrayInputStream(complexCode.toByteArray()),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertNormalExitCode()
+                    }.assertAll()
+            }
+    }
 }
