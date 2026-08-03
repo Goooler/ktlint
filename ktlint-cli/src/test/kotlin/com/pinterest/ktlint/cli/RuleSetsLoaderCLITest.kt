@@ -55,4 +55,28 @@ class RuleSetsLoaderCLITest {
                     }.assertAll()
             }
     }
+
+    @Test
+    fun `Given a valid custom ruleset jar then load and execute rules successfully`(
+        @TempDir
+        tempDir: Path,
+    ) {
+        val validCustomRulesetJar = "custom-ruleset/ktlint-ruleset-template.jar"
+        CommandLineTestRunner(tempDir)
+            .run(
+                "custom-ruleset",
+                listOf("-R", "$tempDir/$validCustomRulesetJar", "**/*.test"),
+            ) {
+                SoftAssertions()
+                    .apply {
+                        assertNormalExitCode()
+                        assertThat(normalOutput)
+                            .containsLineMatching(
+                                Regex(
+                                    ".*rule providers of type 'RuleSetProviderV3' for file:.*$validCustomRulesetJar.*",
+                                ),
+                            )
+                    }.assertAll()
+            }
+    }
 }
