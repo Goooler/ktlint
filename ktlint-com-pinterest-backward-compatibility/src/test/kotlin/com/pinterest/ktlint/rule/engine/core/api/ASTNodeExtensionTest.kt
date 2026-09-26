@@ -2,16 +2,15 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import assertk.assertAll
 import assertk.assertThat
 import assertk.assertions.contains
-import assertk.assertions.containsAtLeast
 import assertk.assertions.containsExactly
-import assertk.assertions.isEmpty
+import assertk.assertions.containsOnly
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isNotNull
 import assertk.assertions.isNull
-import assertk.assertions.isSuccess
 import assertk.assertions.isTrue
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.CLASS
@@ -35,6 +34,7 @@ import com.pinterest.ktlint.rule.engine.core.api.ElementType.WHITE_SPACE
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
 import io.github.ktlint.core.test.SPACE
+import io.github.ktlint.core.test.assertDoesNotThrow
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.KtAnnotated
@@ -488,11 +488,10 @@ class ASTNodeExtensionTest {
                             ?.findChildByType(CLASS_BODY)
                             ?.findChildByType(LBRACE)
                             ?.upsertWhitespaceBeforeMe(" ")
-                    }.findChildByType(CLASS)
-                    ?.findChildByType(CLASS_BODY)
-                    ?.prevSibling20
-                    ?.let { it.isWhiteSpace20 && it.text == " " }
-                    ?: false
+                    }.findChildByType(CLASS)!!
+                    .findChildByType(CLASS_BODY)!!
+                    .prevSibling20!!
+                    .let { it.isWhiteSpace20 && it.text == " " }
 
             assertThat(actual).isTrue()
         }
@@ -688,10 +687,9 @@ class ASTNodeExtensionTest {
                 .firstChildLeafOrSelf20
                 .leaves()
                 .filter { it.elementType == IDENTIFIER }
-                .map { it.text to it.indent20 }
-                .toMap()
+                .associate { it.text to it.indent20 }
 
-        assertThat(actual).containsAtLeast(
+        assertThat(actual).containsOnly(
             "Foo1" to "\n",
             "foo2" to "\n    ",
             "foo3" to "\n    ",
@@ -724,7 +722,7 @@ class ASTNodeExtensionTest {
                         .joinToString(separator = "") { it.text }
                 }.toList()
 
-        assertThat(actual).containsAtLeast(
+        assertThat(actual).containsOnly(
             "class Foo1 {",
             "\n    val foo2 = \"foo2\"",
             "\n\n    fun foo3() {",
@@ -756,7 +754,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).containsAtLeast(
+            assertThat(actual).containsOnly(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\"".length,
                 "    fun foo3() {".length,
@@ -786,7 +784,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).containsAtLeast(
+            assertThat(actual).containsOnly(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\" // some comment".length,
                 "    fun foo3() {".length,
@@ -820,7 +818,7 @@ class ASTNodeExtensionTest {
                             .lineLength
                     }.toList()
 
-            assertThat(actual).containsAtLeast(
+            assertThat(actual).containsOnly(
                 "class Foo1".length,
                 "    val foo2".length,
                 "    fun foo3".length,
@@ -837,20 +835,18 @@ class ASTNodeExtensionTest {
                 val foo2 = "foo2"
                 """.trimIndent()
 
-            assertThat(
-                runCatching {
-                    transformCodeToAST(code)
-                        .firstChildLeafOrSelf20
-                        .leaves()
-                        .filter { it.elementType == IDENTIFIER }
-                        .map { identifier ->
-                            identifier
-                                .leavesOnLine20
-                                .takeWhile { it.prevLeaf != identifier }
-                                .lineLength
-                        }.toList()
-                },
-            ).isSuccess()
+            assertDoesNotThrow {
+                transformCodeToAST(code)
+                    .firstChildLeafOrSelf20
+                    .leaves()
+                    .filter { it.elementType == IDENTIFIER }
+                    .map { identifier ->
+                        identifier
+                            .leavesOnLine20
+                            .takeWhile { it.prevLeaf != identifier }
+                            .lineLength
+                    }.toList()
+            }
         }
     }
 
@@ -877,7 +873,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).containsAtLeast(
+            assertThat(actual).containsOnly(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\"".length,
                 "    fun foo3() {".length,
@@ -906,7 +902,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).containsAtLeast(
+            assertThat(actual).containsOnly(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\" // some comment".length,
                 "    fun foo3() {".length,
@@ -935,7 +931,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.dropTrailingEolComment().lineLength }
                     .toList()
 
-            assertThat(actual).containsAtLeast(
+            assertThat(actual).containsOnly(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\"".length,
                 "    fun foo3() {".length,
@@ -980,11 +976,11 @@ class ASTNodeExtensionTest {
             """.trimIndent()
         val actual =
             transformCodeToAST(code)
-                .findChildByType(FUN)
-                ?.findChildByType(IDENTIFIER)
-                ?.afterCodeSibling(FUN_KEYWORD)
+                .findChildByType(FUN)!!
+                .findChildByType(IDENTIFIER)!!
+                .afterCodeSibling(FUN_KEYWORD)
 
-        assertThat(actual).isEqualTo(true)
+        assertThat(actual).isTrue()
     }
 
     @ParameterizedTest(name = "Text between FUN_KEYWORD and IDENTIFIER: {0}")
@@ -1003,11 +999,11 @@ class ASTNodeExtensionTest {
             """.trimIndent()
         val actual =
             transformCodeToAST(code)
-                .findChildByType(FUN)
-                ?.findChildByType(FUN_KEYWORD)
-                ?.beforeCodeSibling(IDENTIFIER)
+                .findChildByType(FUN)!!
+                .findChildByType(FUN_KEYWORD)!!
+                .beforeCodeSibling(IDENTIFIER)
 
-        assertThat(actual).isEqualTo(true)
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -1018,11 +1014,13 @@ class ASTNodeExtensionTest {
             """.trimIndent()
         val identifier =
             transformCodeToAST(code)
-                .findChildByType(FUN)
-                ?.findChildByType(IDENTIFIER)
+                .findChildByType(FUN)!!
+                .findChildByType(IDENTIFIER)!!
 
-        assertThat(identifier?.betweenCodeSiblings(FUN_KEYWORD, VALUE_PARAMETER_LIST)).isEqualTo(true)
-        assertThat(identifier?.betweenCodeSiblings(MODIFIER_LIST, TYPE_REFERENCE)).isEqualTo(true)
+        assertAll {
+            assertThat(identifier.betweenCodeSiblings(FUN_KEYWORD, VALUE_PARAMETER_LIST)).isTrue()
+            assertThat(identifier.betweenCodeSiblings(MODIFIER_LIST, TYPE_REFERENCE)).isTrue()
+        }
     }
 
     @Test
@@ -1068,12 +1066,13 @@ class ASTNodeExtensionTest {
                 """
                 private fun foo() = 42
                 """.trimIndent()
+
             val actual =
                 transformCodeToAST(code)
-                    .findChildByType(FUN)
-                    ?.hasModifier(PRIVATE_KEYWORD)
+                    .findChildByType(FUN)!!
+                    .hasModifier(PRIVATE_KEYWORD)
 
-            assertThat(actual).isEqualTo(true)
+            assertThat(actual).isTrue()
         }
 
         @Test
@@ -1082,12 +1081,13 @@ class ASTNodeExtensionTest {
                 """
                 internal fun foo() = 42
                 """.trimIndent()
+
             val actual =
                 transformCodeToAST(code)
-                    .findChildByType(FUN)
-                    ?.hasModifier(PRIVATE_KEYWORD)
+                    .findChildByType(FUN)!!
+                    .hasModifier(PRIVATE_KEYWORD)
 
-            assertThat(actual).isEqualTo(false)
+            assertThat(actual).isFalse()
         }
 
         @Test
@@ -1096,12 +1096,13 @@ class ASTNodeExtensionTest {
                 """
                 fun foo() = 42
                 """.trimIndent()
+
             val actual =
                 transformCodeToAST(code)
-                    .findChildByType(FUN)
-                    ?.hasModifier(PRIVATE_KEYWORD)
+                    .findChildByType(FUN)!!
+                    .hasModifier(PRIVATE_KEYWORD)
 
-            assertThat(actual).isEqualTo(false)
+            assertThat(actual).isFalse()
         }
     }
 

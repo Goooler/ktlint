@@ -5,7 +5,6 @@ import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEmpty
-import assertk.assertions.isSuccess
 import dev.drewhamilton.poko.Poko
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.ktlint.core.logger.api.setDefaultLoggerModifier
@@ -423,10 +422,9 @@ public class KtLintAssertThatAssertable(
                 ).isEqualTo(code.content)
             },
             {
-                assertThat(
-                    runCatching { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) },
-                    name = "After reformat of code, it can no longer be successfully parsed",
-                ).isSuccess()
+                assertDoesNotThrow("After reformat of code, it can no longer be successfully parsed") {
+                    createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script))
+                }
             },
         )
     }
@@ -445,10 +443,9 @@ public class KtLintAssertThatAssertable(
                 ).isEmpty()
             },
             {
-                assertThat(
-                    runCatching { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) },
-                    name = "After reformat of code, it can no longer be successfully parsed",
-                ).isSuccess()
+                assertDoesNotThrow("After reformat of code, it can no longer be successfully parsed") {
+                    runCatching { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) }
+                }
             },
         )
 
@@ -575,12 +572,9 @@ public class KtLintAssertThatAssertable(
                 ).isEqualTo(formattedCode)
             },
             {
-                assertThat(
-                    runCatching {
-                        createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script))
-                    },
-                    name = "After reformat of code, it can no longer be successfully parsed",
-                ).isSuccess()
+                assertDoesNotThrow("After reformat of code, it can no longer be successfully parsed") {
+                    createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script))
+                }
             },
         )
 

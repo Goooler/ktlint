@@ -1,5 +1,6 @@
 package io.github.ktlint.core.rule.engine.api
 
+import assertk.assertAll
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.isEqualTo
@@ -165,25 +166,27 @@ class KtLintTest {
                             AutocorrectDecision.NO_AUTOCORRECT
                         }
                     }
-                assertThat(actualFormattedCode).isEqualTo(formattedCode)
-                assertThat(callbacks.toList()).containsExactly(
-                    CallbackResult(
-                        line = 1,
-                        col = 12,
-                        ruleId = AUTOCORRECT_ERROR_RULE_ID,
-                        detail = ERROR_MESSAGE_CAN_NOT_BE_AUTOCORRECTED,
-                        canBeAutoCorrected = false,
-                        corrected = false,
-                    ),
-                    CallbackResult(
-                        line = 2,
-                        col = 12,
-                        ruleId = AUTOCORRECT_ERROR_RULE_ID,
-                        detail = ERROR_MESSAGE_CAN_BE_AUTOCORRECTED,
-                        canBeAutoCorrected = true,
-                        corrected = true,
-                    ),
-                )
+                assertAll {
+                    assertThat(actualFormattedCode).isEqualTo(formattedCode)
+                    assertThat(callbacks.toList()).containsExactly(
+                        CallbackResult(
+                            line = 1,
+                            col = 12,
+                            ruleId = AUTOCORRECT_ERROR_RULE_ID,
+                            detail = ERROR_MESSAGE_CAN_NOT_BE_AUTOCORRECTED,
+                            canBeAutoCorrected = false,
+                            corrected = false,
+                        ),
+                        CallbackResult(
+                            line = 2,
+                            col = 12,
+                            ruleId = AUTOCORRECT_ERROR_RULE_ID,
+                            detail = ERROR_MESSAGE_CAN_BE_AUTOCORRECTED,
+                            canBeAutoCorrected = true,
+                            corrected = true,
+                        ),
+                    )
+                }
             }
         }
     }

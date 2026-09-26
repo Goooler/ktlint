@@ -253,15 +253,16 @@ class CommandLineTestRunner(
                         "call this assertion for commands that never print this line."
                 }
             } else {
-                val message =
+                assertThat(
+                    exitCode,
                     "Expected process to exit with exitCode 0, but was $exitCode."
                         .followedByIndentedList(
                             listOf(
                                 "RESULTS OF STDOUT:".followedByIndentedList(normalOutput, 2),
                                 "RESULTS OF STDERR:".followedByIndentedList(errorOutput, 2),
                             ),
-                        )
-                assertThat(exitCode, name = message).isEqualTo(0)
+                        ),
+                ).isEqualTo(0)
             }
         }
 
@@ -275,14 +276,14 @@ class CommandLineTestRunner(
                         "call this assertion for commands that never print this line."
                 }
             } else {
-                val message = "Execution was expected to finish with error. However, exitCode is $exitCode"
-                assertThat(exitCode, name = message).isNotEqualTo(0)
+                assertThat(exitCode, "Execution was expected to finish with error. However, exitCode is $exitCode")
+                    .isNotEqualTo(0)
             }
         }
 
         fun assertErrorOutputIsEmpty() {
-            val message = "Expected error output to be empty but was:".followedByIndentedList(errorOutput)
-            assertThat(errorOutput, name = message).isEmpty()
+            assertThat(errorOutput, "Expected error output to be empty but was:".followedByIndentedList(errorOutput))
+                .isEmpty()
         }
 
         fun assertSourceFileWasFormatted(filePathInProject: String) {

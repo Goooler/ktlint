@@ -8,13 +8,13 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
-import assertk.assertions.isSuccess
 import assertk.assertions.isTrue
 import assertk.assertions.message
 import assertk.assertions.startsWith
 import io.github.ktlint.core.rule.engine.api.EditorConfigDefaults
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ec4j.toPropertyWithValue
 import io.github.ktlint.core.test.KtlintTestFileSystem
+import io.github.ktlint.core.test.assertDoesNotThrow
 import org.ec4j.core.model.Property
 import org.ec4j.core.model.PropertyType
 import org.junit.jupiter.api.Test
@@ -98,11 +98,7 @@ class EditorConfigTest {
         val someDeprecatedEditorConfigProperty = sampleEditorConfigProperty(deprecationWarning = "some-deprecation-message")
         val editorConfig = EditorConfig().addPropertiesWithDefaultValueIfMissing(someDeprecatedEditorConfigProperty)
 
-        assertThat(
-            runCatching {
-                editorConfig[sampleEditorConfigProperty()]
-            },
-        ).isSuccess()
+        assertDoesNotThrow { editorConfig[sampleEditorConfigProperty()] }
     }
 
     @Test
@@ -136,9 +132,12 @@ class EditorConfigTest {
                     sampleEditorConfigProperty(name = propertyName2, ktlintOfficialCodeStyleDefaultValue = propertyValue2),
                 )
 
-        val actual = editorConfig.map { property -> property.name.uppercase() to property.sourceValue.uppercase() }
+        val actual =
+            editorConfig
+                .map { property -> property.name.uppercase() to property.sourceValue.uppercase() }
+                .toList()
 
-        assertThat(actual.toList()).containsExactly(
+        assertThat(actual).containsExactly(
             propertyName1.uppercase() to propertyValue1.uppercase(),
             propertyName2.uppercase() to propertyValue2.uppercase(),
         )
@@ -155,9 +154,7 @@ class EditorConfigTest {
         }.isInstanceOf<IllegalArgumentException>()
             .message()
             .isNotNull()
-            .startsWith(
-                "Found multiple editorconfig properties with name '$SOME_PROPERTY_NAME' but having distinct identities:",
-            )
+            .startsWith("Found multiple editorconfig properties with name '$SOME_PROPERTY_NAME' but having distinct identities:")
     }
 
     @Test
@@ -173,9 +170,7 @@ class EditorConfigTest {
         }.isInstanceOf<IllegalArgumentException>()
             .message()
             .isNotNull()
-            .startsWith(
-                "Found multiple editorconfig properties with name '$SOME_PROPERTY_NAME' but having distinct identities:",
-            )
+            .startsWith("Found multiple editorconfig properties with name '$SOME_PROPERTY_NAME' but having distinct identities:")
     }
 
     @Test
